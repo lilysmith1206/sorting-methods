@@ -1,0 +1,24 @@
+<!-- Copied from https://getbootstrap.com/docs/4.0/components/navbar/, because I am shameless. -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Sorting Algorithms</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li *ngFor='let method of options' class="nav-item">
+        <a (click)='selectSorter(method)' href="#" class="nav-link">{{ capitaliseWord(method) }} Sort</a>
+      </li>
+      <!-- <li class="nav-item active">
+        <a (click)='selectSorter("bogo")' href="#" class="nav-link">Bogo Sort</a>
+      </li>
+      <li class="nav-item">
+        <a (click)='selectSorter("counting")' href="#" class="nav-link">Counting Sort</a>
+      </li>
+      <li class="nav-item">
+        <a (click)='selectSorter("selection")' href="#" class="nav-link">Selection Sort</a>
+      </li> -->
+    </ul>
+  </div>
+</nav>
