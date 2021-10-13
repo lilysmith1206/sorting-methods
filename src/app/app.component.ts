@@ -28,17 +28,20 @@ export class AppComponent {
   }
 
   startSort() {
-    const startTime = new Date();
+    const startTime = Date.now();
     this.sorterService.startSort();
-    this.sortTime = new Date().getMilliseconds() - startTime.getMilliseconds();
-    this.hasSorted = true;
+    setTimeout( () => {
+      this.sortTime = Date.now() - startTime;
+      this.hasSorted = true;
+    })
+
   }
 
   restartSort() {
     this.sorterService.method = this.method;
     this.sortTime = 0;
     setTimeout( () => {
-    this.startSort();
+      this.startSort();
     });
   }
 

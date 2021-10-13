@@ -179,7 +179,7 @@ export class SorterService {
     this.createArray();
 
     if (value === 'bogo') {
-      this.arrays.unsorted = this.arrays.unsorted.slice(0, 8);
+      this.arrays.unsorted = this.arrays.unsorted.slice(0, 10);
     }
 
     this.methodEmitter.emit(value);
