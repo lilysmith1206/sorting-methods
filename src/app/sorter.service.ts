@@ -10,6 +10,7 @@ export class SorterService {
 
   public methodEmitter = new EventEmitter<string>();
   public arrayEmitter = new EventEmitter<{unsorted: number[], sorted: number[]}>();
+  public maxArrayLength: number = 200;
 
   private sortingAlgorithms: {name: string, algorithm: {(arr: number[]): number[]}}[] = [
     {
@@ -49,10 +50,11 @@ export class SorterService {
 
         for (let i = 0; i < arr.length; i++) {
           newArr[count[arr[i]] - 1] = arr[i];
+          console.log(newArr);
           count[arr[i]]--;
         }
 
-        return newArr.slice(0, newArr.length - 2);
+        return newArr;
       }
     },
     {
@@ -99,77 +101,6 @@ export class SorterService {
     }
   ];
 
-  // private sortAlgorithms: {(arr: number[]): number[]}[] = [
-  //   (arr) s=> {  // bogosort
-  //     const sorted = (array: number[]) => {
-  //       let isArraySorted = true;
-  //       let prevValue = -Infinity;
-  //       for (let i = 0; i < array.length; i++) {
-  //         if (array[i] < prevValue) {
-  //           isArraySorted = false;
-  //           break;
-  //         }
-  //         prevValue = array[i];
-  //       }
-  //       return isArraySorted;
-  //     }
-  //     let shuffledArr: number[] = arr;
-  //     while (!this.sortInterrupt && !sorted(shuffledArr)) {
-  //       let tempArr: number[] = [];
-  //       while (shuffledArr.length > 0) {
-  //         const randIndex = Math.floor(Math.random()*shuffledArr.length);
-  //         tempArr.push(shuffledArr[randIndex]);
-  //         shuffledArr.splice(randIndex, 1);
-  //       }
-  //       shuffledArr = tempArr;
-  //     }
-  //     return shuffledArr;
-  //   },
-  //   (arr) => { // counting sort
-  //     const max: number = arr.reduce((prev, curr) => prev > curr ? prev : curr);
-  //     let count: number[] = new Array(max + 1);
-  //     const newArr: number[] = new Array(arr.length);
-
-  //     for (let i = 0; i < count.length; i++) {count[i] = 0;}
-  //     count[max] = 0;
-
-  //     for (let i = 0; i < arr.length; i++) {
-  //       count[arr[i]]++;
-  //     }
-
-  //     for (let i = 1; i <= max; i++) {
-  //       count[i] += count[i - 1];
-  //     }
-
-  //     for (let i = 0; i < arr.length; i++) {
-  //       newArr[count[arr[i]] - 1] = arr[i];
-  //       count[arr[i]]--;
-  //     }
-
-  //     return newArr.slice(0, newArr.length - 2);
-  //   },
-  //   (arr) => {
-  //     const newArr: number[] = [];
-  //     while (arr.length > 0) {
-  //       let min: {val: number, index: number} = {val: Infinity, index: 0};
-
-  //       for (let i = 0; i < arr.length; i++) {
-  //         if (arr[i] < min.val) {
-  //           min.val = arr[i];
-  //           min.index = i;
-  //         }
-  //       }
-  //       arr.splice(min.index, 1);
-  //       newArr.push(min.val);
-  //     }
-  //     return newArr;
-  //   },
-  //   (arr) => { // javascript array.sort()
-  //     const sortedArr = arr.sort((a, b) => a - b);
-  //     return sortedArr;
-  //   }
-  // ]
-
   private arrays: {unsorted: number[], sorted: number[]} = {
     unsorted: [],
     sorted: []
@@ -193,11 +124,24 @@ export class SorterService {
   createArray() {
     this.arrays.unsorted = new Array(100);
 
-    for (let i = 0; i < 100; i++) {
-      this.arrays.unsorted[i] = Math.floor(Math.random()*1000);
+    for (let i = 0; i < this.maxArrayLength; i++) {
+      this.arrays.unsorted[i] = i; //Math.floor(Math.random()*1000);
     }
 
+    this.arrays.unsorted = this.shuffleArray(this.arrays.unsorted.slice());
+
     this.arrayEmitter.emit(this.arrays);
+  }
+
+  shuffleArray(arr: number[]) {
+    let tempArr: number[] = [];
+    while (arr.length > 0) {
+      const randIndex = Math.floor(Math.random()*arr.length);
+      tempArr.push(arr[randIndex]);
+      arr.splice(randIndex, 1);
+    }
+
+    return tempArr;
   }
 
   startSort() {

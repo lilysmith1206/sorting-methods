@@ -1,27 +1,20 @@
-# SortingMethods
+## Sorting Methods
+This program generates an array with unique values 0-99, and then sorts it using various sorting methods implemented in Typescript.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5.
+## Sorting Types
 
-## Development server
+Bogo Sort: Shuffles array randomly until it is sorted. One of the worst sorting methods, and one of the easiest to implement. Because it's so bad, uses a smaller array to sort.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Counting Sort: Counts the amount of each number in the array, and uses that to place the elements in the new array.
 
-## Code scaffolding
+Javascript's Array.sort: Uses the sorting function shown below to calculate placement.
+```typescript
+(a, b) => (a - b)
+``` 
+Selection Sort: Gets the lowest value in the array, places it in the new array. Repeats until the old array is empty.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Bubble Sort: Swaps two values if they're not ordered according to the order function.
 
-## Build
+## Display
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The display uses a table and coloured tiles to show the unsorted and sorted arrays, instead of showing the numbers themselves.

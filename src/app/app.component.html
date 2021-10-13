@@ -3,14 +3,23 @@
 <div class="mt-5 container">
   <div class="row">
     <div class="col-6" style="word-break: break-all">
-      <span *ngFor='let value of arrays.unsorted'>
+      <!-- <span *ngFor='let value of arrays.unsorted'>
         <span [ngStyle]='{color: createTextColour(value)}'> {{ value }} </span>
-      </span>
+      </span> -->
+      <table>
+        <tr *ngFor='let row of arrays.unsorted'>
+          <td *ngFor='let cell of row' class="cell" [ngStyle]='{backgroundColor: createTextColour(cell)}'></td>
+        </tr>
+      </table>
     </div>
     <div class="col-6" style="word-break: break-all">
-      <span *ngFor='let value of arrays.sorted'>
-        <span [ngStyle]='{color: createTextColour(value)}'> {{ value }} </span>
-      </span>
+      <table>
+        <tr *ngFor='let row of arrays.sorted'>
+          <td *ngFor='let cell of row' class="cell"
+              [ngStyle]='{backgroundColor: createTextColour(cell)}'
+              ></td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

@@ -1,4 +1,3 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component } from '@angular/core';
 import { SorterService } from './sorter.service';
 
@@ -11,7 +10,7 @@ export class AppComponent {
   method: string;
   sortTime: number = 0;
   hasSorted: boolean = false;
-  arrays: {unsorted: number[], sorted: number[]} = {
+  arrays: {unsorted: number[][], sorted: number[][]} = {
     unsorted: [],
     sorted: []
   };
@@ -23,7 +22,21 @@ export class AppComponent {
     })
 
     sorterService.arrayEmitter.subscribe(obj => {
-      this.arrays = obj;
+      if (sorterService.method === 'bogo') {
+        this.arrays.unsorted[0] = obj.unsorted.slice(0, 20);
+        this.arrays.sorted[0] = obj.sorted.slice(0, 20);
+      }
+      const rowAmt: number = 10;
+      const sortedColAmt: number = obj.unsorted.length/rowAmt;
+      for (let i = 0; i < rowAmt; i++) {
+        this.arrays.sorted[i] = obj.sorted.slice(i*sortedColAmt, i*sortedColAmt + sortedColAmt);
+      }
+
+      const unsortedColAmt: number = obj.unsorted.length/rowAmt;
+      for (let i = 0; i < rowAmt; i++) {
+        this.arrays.unsorted[i] = obj.unsorted.slice(i*unsortedColAmt, i*unsortedColAmt + unsortedColAmt);
+      }
+
     })
   }
 
@@ -46,10 +59,8 @@ export class AppComponent {
   }
 
   createTextColour(value: number) {
-    const r = 128 + Math.floor(128 * value / 1000);
-    const g = 0
-    const b = 0;
+    const c = 20 + Math.floor(235 * value / this.sorterService.maxArrayLength);
 
-    return `rgb(${r}, ${b}, ${g})`;
+    return `rgb(${c}, ${c}, ${c})`;
   }
 }

@@ -1,0 +1,11 @@
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+td.cell {
+  text-align: center;
+  vertical-align: middle;
+  width: 25px;
+  height: 25px;
+}
