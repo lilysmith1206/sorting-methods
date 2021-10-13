@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
+import { IndexDecoratorDirective } from './index-decorator.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    IndexDecoratorDirective
   ],
   imports: [
     BrowserModule

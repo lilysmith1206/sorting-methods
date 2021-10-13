@@ -3,10 +3,14 @@
 <div class="mt-5 container">
   <div class="row">
     <div class="col-6" style="word-break: break-all">
-      {{ arrays.unsorted }}
+      <span *ngFor='let value of arrays.unsorted'>
+        <span [ngStyle]='{color: createTextColour(value)}'> {{ value }} </span>
+      </span>
     </div>
     <div class="col-6" style="word-break: break-all">
-      {{ arrays.sorted }}
+      <span *ngFor='let value of arrays.sorted'>
+        <span [ngStyle]='{color: createTextColour(value)}'> {{ value }} </span>
+      </span>
     </div>
   </div>
 </div>
